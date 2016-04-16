@@ -1,4 +1,4 @@
-"Buchungstag";"Verwendungszweck";"Begünstigter/Zahlungspflichtiger";"Kontonummer";"BLZ";"Betrag";"Währung";"Info"
+"Buchungstag";"Verwendungszweck";"Zahlungspflichtiger";"Kontonummer";"BLZ";"Betrag";"Währung";"Info"
 "13.04";"08.04/21.39UHR FooOrt";"GA NR000041238 BLZ43059991 3";"";"43059991";"-30,00";"Dollar";"Umsatz gebucht"
 "02.04";"31.03/16.38UHR SPK.Foo G90
 EUR00000020,00";"GA NR00001147 BLZ44050199 3";"9000411008";"44050199";"-20,00";"Dollar";"Umsatz gebucht"

@@ -3,7 +3,8 @@ import csv
 import re
 import datetime
 
-filename = 'ksk.csv'
+filename = 'com_direckt_giro.txt'
+filenameoutput= filename + '.output'
 now = datetime.datetime.now()
 jahr = now.year
 print(jahr)
@@ -14,8 +15,9 @@ print(jahr)
 with open(filename, newline='') as csvfilein:
     # reader = csv.reader(csvfile, delimiter=';', quotechar='"')
     # csv.reader()
-    reader = csv.DictReader(csvfilein, None, None, None, delimiter=';', quotechar='"')
-    with open('test.csv', 'w') as csvfileout:
+    fieldnames_com = ['Buchungsdatum', 'Valutadatum', 'Vorgang', 'Buchungstext', 'Umsatz']
+    reader = csv.DictReader(csvfilein, fieldnames_com, None, None, delimiter=';', quotechar='"')
+    with open(filenameoutput, 'w', newline='') as csvfileout:
         fieldnames = ['Date', 'Payee', 'Category', 'Memo', 'Outflow', 'Inflow']
         writer = csv.DictWriter(csvfileout, fieldnames=fieldnames)
         writer.writeheader()
@@ -23,9 +25,12 @@ with open(filename, newline='') as csvfilein:
         for row in reader:
             tag = str(row['Buchungstag'])[0:0 + 2]
             monat = str(row['Buchungstag'])[3:3 + 2]
-            date = tag + '/' + monat + '/' + str(jahr)
-
-            payee = row['Begünstigter/Zahlungspflichtiger']
+            jahr2 = str(row['Buchungstag'])[6:6 + 2]
+            date = tag + '/' + monat + '/' + '20' + str(jahr2)
+s= "Name1=Value1;Name2=Value2;Name3=Value3"
+dict(item.split("=") for item in s.split(";"))
+            #payee = row['Begünstigter/Zahlungspflichtiger']
+            payee = row['Zahlungspflichtiger']
             # print(tag)
             verwendungszweck = re.sub(r'(?<=[a-z])\r?\n|\u000A', ' ', row['Verwendungszweck'])
             print(monat, ',', tag, ',', verwendungszweck)
@@ -42,7 +47,7 @@ with open(filename, newline='') as csvfilein:
             if betrag > 0:
                 inflow = betrag
             else:
-                outflow = (betrag * -10)
+                outflow = (betrag * -1)
 
             writer.writerow({'Date': date, 'Payee': payee, 'Category': '', 'Memo': verwendungszweck, 'Outflow': outflow,
                              'Inflow': inflow})
